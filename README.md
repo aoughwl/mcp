@@ -1,6 +1,6 @@
-# aowlmcp — Model Context Protocol servers in Nimony
+# MCP — Model Context Protocol servers in Nimony
 
-`aowlmcp` is a small, self-contained library for building [Model Context
+`MCP` is a small, self-contained library for building [Model Context
 Protocol](https://modelcontextprotocol.io) (MCP) servers in **Nimony**. It
 speaks the MCP stdio transport — line-delimited JSON-RPC 2.0 — so any MCP client
 (Claude Code, Claude Desktop, editor agents) can drive a tool server you write
@@ -15,7 +15,7 @@ it is Nimony's standard library.
 MCP is not a language feature — it is JSON-RPC 2.0 with a fixed method
 vocabulary (`initialize`, `tools/list`, `tools/call`, …). Nimony had everything
 needed to speak it (`std/syncio`, `std/strutils`, `std/tables`) except an
-ergonomic JSON value type, so `aowlmcp` ships one and wraps the protocol loop.
+ergonomic JSON value type, so `MCP` ships one and wraps the protocol loop.
 The result: expose a Nimony proc as an LLM-callable tool without leaving Nimony.
 
 ## Install / build
@@ -24,8 +24,8 @@ Requires the Nimony compiler (`~/nimony/bin/nimony`). There is no external
 dependency.
 
 ```sh
-git clone https://github.com/aoughwl/aowlmcp
-cd aowlmcp
+git clone https://github.com/aoughwl/mcp
+cd mcp
 ./build.sh examples/echo_server.nim   # builds bin/echo_server
 ./tests/e2e.sh                        # unit + end-to-end tests
 ```
@@ -70,7 +70,7 @@ tool-level failure (the response comes back with `isError: true`).
 
 ## Protocol coverage
 
-aowlmcp speaks **both** protocol versions — the original **`2024-11-05`** and the
+MCP speaks **both** protocol versions — the original **`2024-11-05`** and the
 stateless **`2026-07-28`** revision — negotiated per request.
 
 | Method | Behaviour |
