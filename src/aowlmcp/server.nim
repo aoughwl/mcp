@@ -287,7 +287,15 @@ proc wrapToolResult(res: JsonValue): JsonValue =
   let isError = res.kindOf == jnObject and res.hasKey("error")
   let block0 = newJObject()
   block0["type"] = newJString("text")
-  block0["text"] = newJString($res)
+  # A handler may return a plain JSON string (sent as the text itself, unquoted)
+  # or {"error": "<message>"} (sent as the message, with isError); anything else
+  # is sent as its JSON serialisation.
+  if res.kindOf == jnString:
+    block0["text"] = newJString(res.getStr)
+  elif isError and res{"error"}.kindOf == jnString and res.len == 1:
+    block0["text"] = newJString(res{"error"}.getStr)
+  else:
+    block0["text"] = newJString($res)
   let content = newJArray()
   content.add(block0)
   result = newJObject()
