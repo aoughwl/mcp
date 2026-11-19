@@ -5,13 +5,14 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 NIMONY="${NIMONY:-$HOME/nimony/bin/nimony}"
-# Dependency: the jsonref library (github.com/aoughwl/jsonref).
-JSONREF="${JSONREF:-$HOME/jsonref/src}"
+# Dependency: the jsonref library (github.com/aoughwl/std, jsonref/src).
+STD="${STD:-$HOME/std}"
+JSONREF="${JSONREF:-$STD/jsonref/src}"
 # The HTTP transport (aowlmcp/http) additionally needs the aoughwl net stack.
 # These paths are harmless for the stdio-only examples (they import none of it).
 NET_PATHS=""
 for d in serve http tcp net tls compress; do
-  p="$HOME/aoughwl-$d"
+  p="$STD/$d"
   [[ -d "$p" ]] && NET_PATHS="$NET_PATHS --path:$p"
 done
 cd "$ROOT"

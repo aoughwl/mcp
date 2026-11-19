@@ -20,8 +20,9 @@ The result: expose a Nimony proc as an LLM-callable tool without leaving Nimony.
 
 ## Install / build
 
-Requires the Nimony compiler (`~/nimony/bin/nimony`). There is no external
-dependency.
+Requires the Nimony compiler (`~/nimony/bin/nimony`) and a checkout of
+[aoughwl/std](https://github.com/aoughwl/std) at `~/std` (override with `STD=`): `jsonref`,
+plus `serve`/`http`/`tcp`/`net`/`tls`/`compress` for the HTTP transport.
 
 ```sh
 git clone https://github.com/aoughwl/mcp

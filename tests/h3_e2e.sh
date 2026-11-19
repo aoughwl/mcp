@@ -4,15 +4,16 @@
 # tools/call) over QUIC on the server's single thread.
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SERVE="$HOME/aoughwl-serve"
+STD="${STD:-$HOME/std}"
+SERVE="$STD/serve"
 NIMONY="${NIMONY:-$HOME/nimony/bin/nimony}"
-JSONREF="${JSONREF:-$HOME/jsonref/src}"
+JSONREF="${JSONREF:-$STD/jsonref/src}"
 NC="$(mktemp -d)"; PORT="${PORT:-8480}"
 CERT="$NC/cert.pem"; KEY="$NC/key.pem"
 
 NET_PATHS=""
 for d in serve http tcp net tls compress; do
-  p="$HOME/aoughwl-$d"; [[ -d "$p" ]] && NET_PATHS="$NET_PATHS --path:$p"
+  p="$STD/$d"; [[ -d "$p" ]] && NET_PATHS="$NET_PATHS --path:$p"
 done
 
 echo "== build QUIC glue shim =="
